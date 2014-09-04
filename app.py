@@ -46,26 +46,26 @@ def changepass():
         user = str(form.user.data)
         opw = str(form.oldpass.data)
         npw = str(form.newpass.data)
-	
-	_cmd = '/usr/bin/smbpasswd -r ' + app.config['AD_SERVER'] + ' -U ' + user
+    
+        _cmd = '/usr/bin/smbpasswd -r ' + app.config['AD_SERVER'] + ' -U ' + user
         child = pexpect.spawn(_cmd)
-	#child.logfile = open("chpass.log", "w")
+        #child.logfile = open("chpass.log", "w")
         child.expect('Old SMB password:')
         child.sendline(opw)
         child.expect('New SMB password:')
         child.sendline(npw)
         child.expect('Retype new SMB password:')
         child.sendline(npw)
-	child.expect(pexpect.EOF)
-	_return = child.before
+        child.expect(pexpect.EOF)
+        _return = child.before
 
-	# NT_STATUS_LOGON_FAILURE
-	if 'NT_STATUS_LOGON_FAILURE' in _return:
-		_msg = ('Invalid current password', 'warning')
-	elif 'Password restriction' in _return:
-		_msg = ('Password restriction, define new one with numbers, wildchars and upper letters.', 'warning')
-	elif 'Password changed' in _return:	
-	        _msg = ('Password changed', 'success')
+        # NT_STATUS_LOGON_FAILURE
+        if 'NT_STATUS_LOGON_FAILURE' in _return:
+            _msg = ('Invalid current password', 'warning')
+        elif 'Password restriction' in _return:
+            _msg = ('Password restriction, define new one with numbers, wildchars and upper letters.', 'warning')
+        elif 'Password changed' in _return: 
+            _msg = ('Password changed', 'success')
 
     flash(*_msg)
     return render_template('form.html', form=form)

@@ -6,26 +6,73 @@
     	<meta charset="utf-8">
     	<meta name="description" content="Active Directory password change form">
     	<title>{{config.APP_NAME}}</title>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+      <style type="text/css">
+        body {
+          padding-top: 40px;
+          padding-bottom: 40px;
+          background-color: #eee;
+          margin:auto;
+          text-align:center;
+        }
+
+        .form-chg-pass {
+          max-width: 350px;
+          padding: 15px;
+          margin: 0 auto;
+        }
+        .form-chg-pass .form-chg-pass-heading,
+        .form-chg-pass .checkbox {
+          margin-bottom: 10px;
+        }
+        .form-chg-pass .form-control {
+          position: relative;
+          height: auto;
+          -webkit-box-sizing: border-box;
+             -moz-box-sizing: border-box;
+                  box-sizing: border-box;
+          padding: 10px;
+          font-size: 16px;
+        }
+        .form-chg-pass .form-control:focus {
+          z-index: 2;
+        }
+        .form-chg-pass input[type="text"] {
+          margin-bottom: 10px;
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        .form-chg-pass input[type="password"] {
+          margin-bottom: 10px;
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+        }
+    </style>
 </head>
     <body>
-	<h1>{{config.APP_NAME}}</h1>
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class="flashes">
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-	<form action="/change-pass" method="post">
-		<dl>
-		{{form.csrf_token}}
-    		{{ render_field(form.user) }}
-    		{{ render_field(form.oldpass) }}
-    		{{ render_field(form.newpass) }}
-  		</dl>
-  		<p><input type="submit" value="Change Pass" /></p>
-	</form>	
+      <div class="container">
+      <div class="page-header">
+        <h1>{{config.APP_NAME}}</h1>
+      </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{category}}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      	<form action="/change-pass" method="post" role="form" class="form-chg-pass">
+      		<dl>
+      		    {{form.csrf_token}}
+          		{{ render_field(form.user) }}
+          		{{ render_field(form.oldpass) }}
+          		{{ render_field(form.newpass) }}
+        	</dl>
+        	<button class="btn btn-lg btn-primary btn-block" type="submit">Change pass</button>
+      	</form>	
+        </div>
     </body>
 </html>
