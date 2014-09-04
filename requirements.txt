@@ -2,3 +2,5 @@ flask
 flask-wtf
 pexpect
 wtforms
+uwsgi
+supervisor
