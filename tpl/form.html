@@ -1,0 +1,31 @@
+{% from "_helper.html" import render_field %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	<meta charset="utf-8">
+    	<meta name="description" content="Active Directory password change form">
+    	<title>{{config.APP_NAME}}</title>
+</head>
+    <body>
+	<h1>{{config.APP_NAME}}</h1>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+	<form action="/change-pass" method="post">
+		<dl>
+		{{form.csrf_token}}
+    		{{ render_field(form.user) }}
+    		{{ render_field(form.oldpass) }}
+    		{{ render_field(form.newpass) }}
+  		</dl>
+  		<p><input type="submit" value="Change Pass" /></p>
+	</form>	
+    </body>
+</html>
