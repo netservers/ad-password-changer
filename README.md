@@ -1,7 +1,7 @@
 ad-password-changer
 ===================
 
-Active Directory password change. 
+Simple web interface to change Active Directory user passwords.
 
 requirements
 ============
