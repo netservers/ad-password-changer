@@ -10,6 +10,7 @@
 import os
 import re
 import pexpect
+import pipes
 
 from subprocess import check_call
 
@@ -53,7 +54,7 @@ def changepass():
 
         _cmd = '/usr/bin/smbpasswd -r %s -U %s' % (
             app.config['AD_SERVER'],
-            user
+            pipes.quote(user)
         )
 
         child = pexpect.spawn(_cmd)
