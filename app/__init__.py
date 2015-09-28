@@ -36,13 +36,13 @@ class ChangePass(Form):
 
 
 # routing
-@app.route('/')
+@app.route('/', methods=['GET'])
 def form():
     form = ChangePass()
     return render_template('form.html', form=form)
 
 
-@app.route('/change-pass', methods=['POST'])
+@app.route('/', methods=['POST'])
 def changepass():
     form = ChangePass()
     _msg = ('Was not possible to change your password', 'warning')

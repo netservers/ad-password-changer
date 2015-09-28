@@ -64,7 +64,7 @@
             {% endfor %}
           {% endif %}
         {% endwith %}
-      	<form action="/change-pass" method="post" role="form" class="form-chg-pass">
+        <form action="/" method="post" role="form" class="form-chg-pass">
       		<dl>
       		    {{form.csrf_token}}
           		{{ render_field(form.user) }}
